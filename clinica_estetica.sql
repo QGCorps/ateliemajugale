@@ -97,8 +97,6 @@ INSERT INTO pacotes (nome, qtde_sessao, observacao, valor_pacote) VALUES
 INSERT INTO prestar (status_compromisso, situacao, id_compromisso, id_servico) VALUES 
 (); 
 
-DROP DATABASE clinica_estetica; 
-
 SELECT * FROM pessoa; 
 
 SELECT * FROM servico; 
