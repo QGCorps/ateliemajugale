@@ -25,24 +25,22 @@ CREATE TABLE servico (
     INDEX (nome_servico)
 );
 
-CREATE TABLE compromisso (
-    id_compromisso INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    nome_cliente VARCHAR(50) NOT NULL, 
-    data_compromisso DATETIME NOT NULL, 
-    hora DATETIME NOT NULL, 
-    nome_servico VARCHAR(50) NOT NULL,
-    status_compromisso VARCHAR(10) NOT NULL, 
-    id_pessoa INT NOT NULL, 
-    FOREIGN KEY (nome_servico) REFERENCES servico (nome_servico),
-    FOREIGN KEY (id_pessoa) REFERENCES pessoa (id_pessoa)
-);
-
 CREATE TABLE pacotes (
 	id_pacote INT AUTO_INCREMENT NOT NULL PRIMARY KEY, 
 	nome VARCHAR(30) NOT NULL, 
 	qtde_sessao INT NOT NULL,
 	observacao VARCHAR(50) NULL, 
 	valor_pacote Decimal (5,2) NOT NULL 
+);
+
+CREATE TABLE compromisso (
+    id_compromisso INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    nome_cliente VARCHAR(50) NOT NULL, 
+    data_compromisso DATE NOT NULL, 
+    hora TIME NOT NULL, 
+    nome_servico VARCHAR(50) NOT NULL,
+    status_compromisso VARCHAR(10) NOT NULL, 
+    FOREIGN KEY (nome_servico) REFERENCES servico (nome_servico)
 );
 
 CREATE TABLE prestar (
@@ -73,10 +71,6 @@ INSERT INTO pessoa (nome_pessoa, telefone, endereco, bairro, complemento, cidade
 ('Rafaela Del Rio', 016997697200, 'Rua João de Caires, 34', 'Vila Furlan' ,'' , 'Araraquara', 38502246860, '29-03-2000', 'cliente',''),
 ('Vitória Regolin Cayres', 016997228572, 'Rua das Magnólias, 250', 'Jardim das Magnólias' ,'' , 'Araraquara', 53893037845, '19-06-2007', 'cliente',''),
 ('Yasmin Rodrigues da Silva', 016997826931, 'Rua Gilda Renê Simplício, 137', 'Parque Residencial Vale do Sol' ,'' , 'Araraquara', 54115819820, '', 'cliente','');
-
-
-INSERT INTO compromisso (nome_cliente, data_compromisso, hora, nome_servico, status_compromisso, id_pessoa) VALUES 
-(); 
 
 INSERT INTO servico (nome_servico, valor_servico, tempo, imagem, tipo, forma_pagto) VALUES 
 ('Aplicação de Fibra de Vidro', 220.00, '2:30','Imagem 1', 'Unha', 'Débito, Crédito,Pix e Dinheiro'),
@@ -110,7 +104,7 @@ INSERT INTO servico (nome_servico, valor_servico, tempo, imagem, tipo, forma_pag
 ('Maquiagem', 160.00, '1:30','Imagem 30', 'Estética', 'Débito, Crédito,Pix e Dinheiro'), 
 ('Sobrancelha sem Henna', 35.00, '1:00','Imagem 31', 'Estética', 'Débito, Crédito,Pix e Dinheiro'), 
 ('Sobrancelha com Henna', 45.00, '1:30','Imagem 32', 'Estética', 'Débito, Crédito,Pix e Dinheiro');
- 
+
 INSERT INTO pacotes (nome, qtde_sessao, observacao, valor_pacote) VALUES 
 ('Massagem Relaxante', 4, '1 por semana (75.00 cada)', 300.00),
 ('Massagem Relaxante', 8, '2 por semana (70,00 cada)', 560.00),
@@ -119,8 +113,19 @@ INSERT INTO pacotes (nome, qtde_sessao, observacao, valor_pacote) VALUES
 ('Drenagem Linfática', 8, '2 por semana (70,00 cada)', 560.00),
 ('Drenagem Linfática', 12, '3 por semana (65,00 cada)', 780.00); 
 
+INSERT INTO compromisso (nome_cliente, data_compromisso, hora, nome_servico, status_compromisso) VALUES 
+('Bruna Brasil', STR_TO_DATE('03-10-2023', '%d-%m-%Y'), '18:00', 'Manutenção e Esmaltação em Gel', 'agendado'),
+('Yasmin Rodrigues', STR_TO_DATE('06-10-2023', '%d-%m-%Y'), '15:00', 'Aplicação de Fibra de Vidro', 'agendado'),
+('Ana Carolina Teixeira Reis', STR_TO_DATE('20-10-2023', '%d-%m-%Y'), '9:00', 'Massagem Relaxante', 'agendado'),
+('Francieli Liboni', STR_TO_DATE('20-10-2023', '%d-%m-%Y'), '16:30', 'Esmaltação em Gel', 'agendado'),
+('Rafaela Del Rio', STR_TO_DATE('21-10-2023', '%d-%m-%Y'), '13:30', 'Maquiagem', 'agendado'); 
+ 
 INSERT INTO prestar (status_prestar, situacao, id_compromisso, id_servico) VALUES 
-(); 
+('agendado', 'aprovado', 1, 17),
+('agendado', 'aprovado', 2, 1),
+('agendado', 'aprovado', 3, 26),
+('agendado', 'aprovado', 4, 8),
+('agendado', 'aprovado', 5, 29); 
 
 SELECT * FROM pessoa; 
 
@@ -128,7 +133,8 @@ SELECT * FROM servico;
 
 SELECT * FROM pacotes; 
 
+SELECT * FROM compromisso; 
 
-
+SELECT * FROM prestar; 
 
 
